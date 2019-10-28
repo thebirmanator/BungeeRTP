@@ -1,0 +1,5 @@
+target/
+.idea/
+slowfallrtp.iml
+bungeertp.iml
+dependency-reduced-pom.xml

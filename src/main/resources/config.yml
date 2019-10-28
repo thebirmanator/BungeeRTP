@@ -1,0 +1,22 @@
+#min and max refer to the furthest out on the x and z axis that a player can be teleported to
+#excluded min and max refer to the range of coords where a player cannot tp that is in the min and max zone
+worlds:
+  world:
+    max-height: 255
+    spawn-range:
+      min: -15000
+      max: 15000
+      exclude-min: -1000
+      exclude-max: 1000
+  world_nether:
+    max-height: 128
+    spawn-range:
+      min: -1000
+      max: 1000
+      exclude-min: -100
+      exclude-max: 100
+cooldown-in-seconds: 10
+blacklisted-blocks:
+- LAVA
+- WATER
+- MAGMA_BLOCK

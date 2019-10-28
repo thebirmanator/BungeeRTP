@@ -1,0 +1,15 @@
+main: me.thebirmanator.slowfallrtp.bukkit.Main
+name: BungeeRTP
+version: 1.0
+author: TheBirmanator
+api-version: 1.14
+depend: [CooldownAPI]
+description: Random teleporting plugin based off of the chicken rtp
+commands:
+  randomtp:
+   usage: /<command>
+   aliases: [wilderness, wild, rtp]
+   description: Randomly teleports a player
+  reloadrtp:
+   usage: /<command>
+   description: Reloads the config for this plugin
