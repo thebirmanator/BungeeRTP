@@ -12,7 +12,7 @@ public class InventoryClickListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        if(event.getClickedInventory().equals(ServerMenu.getInventory())) {
+        if(event.getClickedInventory() != null && event.getClickedInventory().equals(ServerMenu.getInventory())) {
             event.setCancelled(true);
             if(event.getCurrentItem() != null && event.getCurrentItem().getType() != Material.AIR) {
                  ServerItem serverItem = ServerItem.getServerItem(event.getCurrentItem());
