@@ -1,3 +1,3 @@
-# SlowFallRTP
+# BungeeRTP
 
-Alternative to the chicken RTP
+Bungee friendly version of SlowFallRTP
