@@ -3,8 +3,12 @@ package me.thebirmanator.slowfallrtp.core;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import me.thebirmanator.slowfallrtp.bukkit.Main;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +18,10 @@ public class ServerItem {
     private ItemStack icon;
     private String server;
 
-    private static List<ServerItem> serverItems = new ArrayList<>();
+    private static List<ServerItem> serverItems;
 
-    public static String channel = "BungeeCord";
-    public static String subChannel = "RTP";
+    //public static String channel = "BungeeCord";
+    //public static String subChannel = "RTP";
 
     public ServerItem(ItemStack icon, String server) {
         this.icon = icon;
@@ -37,7 +41,7 @@ public class ServerItem {
     public void sendConnectRequest(Player player) {
         ByteArrayDataOutput output = ByteStreams.newDataOutput();
         // the channel
-        output.writeUTF(subChannel);
+        output.writeUTF("RTP");
         // who this is affecting
         output.writeUTF(player.getUniqueId().toString());
         // which realm to send them to
@@ -56,5 +60,25 @@ public class ServerItem {
 
     public static List<ServerItem> getServerItems() {
         return serverItems;
+    }
+
+    public static void loadFromConfig() {
+        serverItems = new ArrayList<>();
+        ConfigurationSection config = Main.getInstance().getConfig().getConfigurationSection("server-selectors");
+        for(String server : config.getKeys(false)) {
+            ConfigurationSection serverSection = config.getConfigurationSection(server);
+            Material material = Material.getMaterial(serverSection.getString("material"));
+            String name = ChatColor.translateAlternateColorCodes('&', serverSection.getString("display-name"));
+            List<String> description = serverSection.getStringList("description");
+            for(String line : description) {
+                description.set(description.indexOf(line), ChatColor.translateAlternateColorCodes('&', line));
+            }
+            ItemStack item = new ItemStack(material);
+            ItemMeta meta = item.getItemMeta();
+            meta.setDisplayName(name);
+            meta.setLore(description);
+            item.setItemMeta(meta);
+            new ServerItem(item, server);
+        }
     }
 }

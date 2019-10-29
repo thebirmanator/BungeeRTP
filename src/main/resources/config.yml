@@ -20,3 +20,11 @@ blacklisted-blocks:
 - LAVA
 - WATER
 - MAGMA_BLOCK
+menu-name: '&6&lRealms'
+server-selectors:
+  crimson:
+    material: RED_WOOL
+    display-name: '&c&lCrimson'
+    description:
+      - '&fThe colour of red'
+      - '&fReminds me of blood'

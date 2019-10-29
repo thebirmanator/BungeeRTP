@@ -23,8 +23,7 @@ public class Main extends JavaPlugin {
 		saveDefaultConfig();
 		loadTheConfig();
 
-		// TODO: make these configurable
-		new ServerItem(new ItemStack(Material.RED_WOOL), "crimson");
+		ServerItem.loadFromConfig();
 
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 		getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
