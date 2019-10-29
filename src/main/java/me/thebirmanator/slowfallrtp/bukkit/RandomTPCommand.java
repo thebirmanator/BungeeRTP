@@ -2,8 +2,6 @@ package me.thebirmanator.slowfallrtp.bukkit;
 
 import java.util.Random;
 
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
 import games.indigo.cooldownapi.Cooldown;
 import me.thebirmanator.slowfallrtp.core.RTPWorld;
 import me.thebirmanator.slowfallrtp.core.ServerMenu;
@@ -32,7 +30,7 @@ public class RandomTPCommand implements CommandExecutor {
 		if(sender instanceof Player) {
 			Player player = (Player) sender;
 			if(args.length == 0 || !args[0].equalsIgnoreCase("reload")) {
-				if(player.hasPermission("darks.command.rtp")) {
+				if(player.hasPermission("rtp.command")) {
 					if(RTPWorld.getRTPWorld(player.getWorld()) != null) {
 						Cooldown cooldown = Cooldown.getCooldown(player, "tpCooldown");
 						if(cooldown == null || cooldown.isExpired()) { // if player has no set cooldown, or their cooldown time has expired
@@ -67,7 +65,7 @@ public class RandomTPCommand implements CommandExecutor {
 					return true;
 				}
 			} else if(args[0].equalsIgnoreCase("reload")) {
-				if(player.hasPermission("darks.command.rtp.reload")) {
+				if(player.hasPermission("rtp.command.reload")) {
 					main.reloadConfig();
 					RTPWorld.getBlacklistedMaterials().clear();
 					RTPWorld.getRTPWorlds().clear();

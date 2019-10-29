@@ -23,9 +23,8 @@ public class Main extends JavaPlugin {
 		saveDefaultConfig();
 		loadTheConfig();
 
-		ServerItem.loadFromConfig();
-
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+		getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new MessageListener());
 		getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
 		getCommand(rtpcmd.randomtp).setExecutor(rtpcmd);
 
@@ -63,6 +62,7 @@ public class Main extends JavaPlugin {
 				break;
 			}
 		}
+		ServerItem.loadFromConfig();
 	}
 
 	public static Main getInstance() {
