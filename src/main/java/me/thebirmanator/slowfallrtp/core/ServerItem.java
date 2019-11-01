@@ -16,6 +16,7 @@ import java.util.List;
 public class ServerItem {
 
     private ItemStack icon;
+    private int slot;
     private String server;
 
     private static List<ServerItem> serverItems;
@@ -23,8 +24,9 @@ public class ServerItem {
     //public static String channel = "BungeeCord";
     //public static String subChannel = "RTP";
 
-    public ServerItem(ItemStack icon, String server) {
+    public ServerItem(ItemStack icon, int slot, String server) {
         this.icon = icon;
+        this.slot = slot;
         this.server = server;
 
         serverItems.add(this);
@@ -32,6 +34,10 @@ public class ServerItem {
 
     public ItemStack getIcon() {
         return icon;
+    }
+
+    public int getSlot() {
+        return slot;
     }
 
     public String getServer() {
@@ -67,6 +73,7 @@ public class ServerItem {
         ConfigurationSection config = Main.getInstance().getConfig().getConfigurationSection("server-selectors");
         for(String server : config.getKeys(false)) {
             ConfigurationSection serverSection = config.getConfigurationSection(server);
+            int slot = serverSection.getInt("slot");
             Material material = Material.getMaterial(serverSection.getString("material"));
             String name = ChatColor.translateAlternateColorCodes('&', serverSection.getString("display-name"));
             List<String> description = serverSection.getStringList("description");
@@ -78,7 +85,7 @@ public class ServerItem {
             meta.setDisplayName(name);
             meta.setLore(description);
             item.setItemMeta(meta);
-            new ServerItem(item, server);
+            new ServerItem(item, slot, server);
         }
     }
 }

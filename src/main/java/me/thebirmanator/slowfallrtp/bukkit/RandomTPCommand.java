@@ -70,6 +70,7 @@ public class RandomTPCommand implements CommandExecutor {
 					RTPWorld.getBlacklistedMaterials().clear();
 					RTPWorld.getRTPWorlds().clear();
 					main.loadTheConfig();
+					ServerMenu.reload();
 					player.sendMessage(ChatColor.GREEN + "RandomTP reloaded succesfully!");
 					return true;
 				} else {
