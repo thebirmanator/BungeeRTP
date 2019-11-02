@@ -5,6 +5,7 @@ import java.util.Random;
 import games.indigo.cooldownapi.Cooldown;
 import me.thebirmanator.slowfallrtp.core.RTPWorld;
 import me.thebirmanator.slowfallrtp.core.ServerMenu;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -45,8 +46,13 @@ public class RandomTPCommand implements CommandExecutor {
 								int cooldownLength = RTPWorld.getCooldown();
 								int cooldownTicks = cooldownLength * 20;
 								player.teleport(loc);
-								player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, cooldownTicks + 60, 2, true, false, false), true);
-								player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, cooldownTicks + 60, 100, true, false, false), true);
+								Bukkit.getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
+									@Override
+									public void run() {
+										player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, cooldownTicks + 60, 2, true, false, false), true);
+										player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, cooldownTicks + 60, 100, true, false, false), true);
+									}
+								}, 20);
 
 								player.sendMessage(ChatColor.GREEN + "You have teleported to the coords: " + loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ());
 								new Cooldown(player, "tpCooldown", cooldownLength);
