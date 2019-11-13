@@ -59,7 +59,6 @@ public class Main extends JavaPlugin {
 				
 			} else {
 				getServer().getConsoleSender().sendMessage(ChatColor.RED + "World name " + ChatColor.GRAY + worldString + ChatColor.RED + " not found.");
-				break;
 			}
 		}
 		ServerItem.loadFromConfig();
