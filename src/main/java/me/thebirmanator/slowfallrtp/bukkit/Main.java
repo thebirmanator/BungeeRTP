@@ -26,6 +26,8 @@ public class Main extends JavaPlugin {
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 		getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new MessageListener());
 		getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
+		getServer().getPluginManager().registerEvents(new SyncListener(), this);
+		getServer().getPluginManager().registerEvents(new PlayerLeaveListener(), this);
 		getCommand(rtpcmd.randomtp).setExecutor(rtpcmd);
 
 		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "SlowFallRTP enabled!");

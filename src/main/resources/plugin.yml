@@ -3,7 +3,7 @@ name: BungeeRTP
 version: 1.0
 author: TheBirmanator
 api-version: 1.14
-depend: [CooldownAPI]
+depend: [CooldownAPI, MysqlPlayerDataBridge]
 description: Random teleporting plugin based off of the chicken rtp
 commands:
   randomtp:

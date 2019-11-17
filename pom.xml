@@ -45,6 +45,14 @@
             <scope>system</scope>
             <systemPath>C:/Users/Birman/Google Drive/Minecraft Jar Build Paths/CooldownAPI.jar</systemPath>
         </dependency>
+        <!-- PlayerData Bridge -->
+        <dependency>
+            <artifactId>..</artifactId>
+            <groupId>..</groupId>
+            <version>..</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/Birman/Google Drive/Minecraft Jar Build Paths/MysqlPlayerDataBridge-v3.29.5.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>

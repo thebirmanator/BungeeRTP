@@ -34,7 +34,7 @@ public class PluginMessageReceiverListener implements Listener {
                     // player this affects
                     output.writeUTF(uuid);
                     // command to do
-                    output.writeUTF("rtp");
+                    //output.writeUTF("rtp");
                     ProxyServer.getInstance().getScheduler().schedule(BungeeMain.getInstance(), new Runnable() {
                         @Override
                         public void run() {
