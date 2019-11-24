@@ -1,6 +1,6 @@
 main: me.thebirmanator.slowfallrtp.bukkit.Main
 name: BungeeRTP
-version: 1.0
+version: 1.1
 author: TheBirmanator
 api-version: 1.14
 depend: [CooldownAPI, MysqlPlayerDataBridge]
@@ -10,6 +10,3 @@ commands:
    usage: /<command>
    aliases: [wilderness, wild, rtp]
    description: Randomly teleports a player
-  reloadrtp:
-   usage: /<command>
-   description: Reloads the config for this plugin

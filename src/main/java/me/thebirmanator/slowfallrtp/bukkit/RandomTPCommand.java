@@ -40,20 +40,13 @@ public class RandomTPCommand implements CommandExecutor {
 								return true;
 							} else {
 								RTPWorld rtpworld = RTPWorld.getRTPWorld(player.getWorld());
-								Location loc = findLocation(rtpworld);
+								Location loc = findLocation(rtpworld).add(0.5, 0, 0.5);
 
 								int cooldownLength = RTPWorld.getCooldown();
 								int cooldownTicks = cooldownLength * 20;
 								player.teleport(loc);
 								player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, cooldownTicks + 60, 2, true, false, false), true);
 								player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, cooldownTicks + 60, 100, true, false, false), true);
-								//Bukkit.getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
-								//	@Override
-								//	public void run() {
-								//		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, cooldownTicks + 60, 2, true, false, false), true);
-								//		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, cooldownTicks + 60, 100, true, false, false), true);
-								//	}
-								//}, 20);
 
 								player.sendMessage(ChatColor.GREEN + "You have teleported to the coords: " + loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ());
 								new Cooldown(player, "tpCooldown", cooldownLength);
@@ -95,36 +88,51 @@ public class RandomTPCommand implements CommandExecutor {
 	private Location findLocation(RTPWorld rtpworld) {
 		Location loc;
 		while(true) {
-			Random random = new Random();		
-			int x;
-			int z;
-			boolean isHigherRange;
-			
-			isHigherRange = random.nextBoolean();
-			if(isHigherRange) {
-				x = random.nextInt((rtpworld.getTpMax() - rtpworld.getTpExcludedMax()) + 1) + rtpworld.getTpExcludedMax();
-			} else {
-				x = random.nextInt((rtpworld.getTpExcludedMin() - rtpworld.getTpMin()) + 1) + rtpworld.getTpMin();
+			Random random = new Random();
+			int[] coords = new int[3];
+			for(int i = 0; i < 3; i++) {
+				if(i == 1) {
+					coords[i] = rtpworld.getMaxHeight();
+				} else {
+					boolean isHigherRange = random.nextBoolean();
+					if(isHigherRange) {
+						coords[i] = random.nextInt((rtpworld.getTpMax() - rtpworld.getTpExcludedMax()) + 1) + rtpworld.getTpExcludedMax();
+					} else {
+						coords[i] = random.nextInt((rtpworld.getTpExcludedMin() - rtpworld.getTpMin()) + 1) + rtpworld.getTpMin();
+					}
+				}
+			}
+			int height = coords[1];
+			loc = new Location(rtpworld.getBukkitWorld(), coords[0], height, coords[2]);
+
+			boolean checkSolid = loc.getBlock().getType() != Material.AIR;
+			while (loc.getY() > 0) {
+				loc.subtract(0, 1, 0);
+				// trying to get to the bottom of a roof
+				if (checkSolid) {
+					if (loc.getBlock().getType() == Material.AIR) { // got to the bottom; found air
+						height = loc.getBlockY();
+						checkSolid = false;
+					}
+				} else {
+					if (loc.getBlock().getType() != Material.AIR) { // found floor
+						int groundLevel = loc.getBlockY();
+						int openSpace = height - groundLevel;
+						if(openSpace > 2) { // player can fit between the roof and floor
+							if(openSpace < 20) {
+								height--;
+							} else {
+								height = groundLevel + 20;
+							}
+							break;
+						}
+					}
+				}
 			}
 
-			int y = 255;
-			
-			isHigherRange = random.nextBoolean();
-			if(isHigherRange) {
-				z = random.nextInt((rtpworld.getTpMax() - rtpworld.getTpExcludedMax()) + 1) + rtpworld.getTpExcludedMax();
-			} else {
-				z = random.nextInt((rtpworld.getTpExcludedMin() - rtpworld.getTpMin()) + 1) + rtpworld.getTpMin();
-			}
-
-			// move down the y value until you reach a solid block
-			loc = new Location(rtpworld.getBukitWorld(), x, y, z);
-			while(loc.getBlock().getType() == Material.AIR) {
-				loc.setY(loc.getY() - 1);
-			}
-			
 			// if the block isn't blacklisted, keep going/return the location
-			if(!RTPWorld.getBlacklistedMaterials().contains(loc.getBlock().getType())) {
-				loc.setY(loc.getY() + 20);
+			if(loc.getY() > 0 && !RTPWorld.getBlacklistedMaterials().contains(loc.getBlock().getType())) {
+				loc.setY(height);
 				break;
 			}
 		}

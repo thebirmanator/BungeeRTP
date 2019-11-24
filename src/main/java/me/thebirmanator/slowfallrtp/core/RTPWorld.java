@@ -29,7 +29,7 @@ public class RTPWorld {
 		this.tpExcludeMax = tpExcludeMax;
 	}
 	
-	public World getBukitWorld() {
+	public World getBukkitWorld() {
 		return world;
 	}
 	
@@ -75,7 +75,7 @@ public class RTPWorld {
 	
 	public static RTPWorld getRTPWorld(World world) {
 		for(RTPWorld rtpWorld : allRTPWorlds) {
-			if(rtpWorld.getBukitWorld().equals(world)) {
+			if(rtpWorld.getBukkitWorld().equals(world)) {
 				return rtpWorld;
 			}
 		}
