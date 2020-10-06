@@ -17,9 +17,9 @@ worlds:
       exclude-max: 100
 cooldown-in-seconds: 10
 blacklisted-blocks:
-- LAVA
-- WATER
-- MAGMA_BLOCK
+  - LAVA
+  - WATER
+  - MAGMA_BLOCK
 menu-name: '&6&lRealms'
 server-selectors:
   crimson:

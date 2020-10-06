@@ -56,8 +56,8 @@ public class ServerItem {
     }
 
     public static ServerItem getServerItem(ItemStack item) {
-        for(ServerItem serverItem : serverItems) {
-            if(serverItem.getIcon().equals(item)) {
+        for (ServerItem serverItem : serverItems) {
+            if (serverItem.getIcon().equals(item)) {
                 return serverItem;
             }
         }
@@ -71,13 +71,13 @@ public class ServerItem {
     public static void loadFromConfig() {
         serverItems = new ArrayList<>();
         ConfigurationSection config = Main.getInstance().getConfig().getConfigurationSection("server-selectors");
-        for(String server : config.getKeys(false)) {
+        for (String server : config.getKeys(false)) {
             ConfigurationSection serverSection = config.getConfigurationSection(server);
             int slot = serverSection.getInt("slot");
             Material material = Material.getMaterial(serverSection.getString("material"));
             String name = ChatColor.translateAlternateColorCodes('&', serverSection.getString("display-name"));
             List<String> description = serverSection.getStringList("description");
-            for(String line : description) {
+            for (String line : description) {
                 description.set(description.indexOf(line), ChatColor.translateAlternateColorCodes('&', line));
             }
             ItemStack item = new ItemStack(material);

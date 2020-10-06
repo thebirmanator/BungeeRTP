@@ -16,11 +16,11 @@ public class PluginMessageReceiverListener implements Listener {
 
     @EventHandler
     public void onReceive(PluginMessageEvent event) {
-        if(event.getTag().equalsIgnoreCase("BungeeCord")) {
+        if (event.getTag().equalsIgnoreCase("BungeeCord")) {
             ByteArrayDataInput input = ByteStreams.newDataInput(event.getData());
             String subChannel = input.readUTF();
-            if(subChannel.equalsIgnoreCase("RTP")) {
-                if(event.getReceiver() instanceof ProxiedPlayer) {
+            if (subChannel.equalsIgnoreCase("RTP")) {
+                if (event.getReceiver() instanceof ProxiedPlayer) {
                     ProxiedPlayer player = (ProxiedPlayer) event.getReceiver();
                     // read twice to get to the server name
                     String uuid = input.readUTF();

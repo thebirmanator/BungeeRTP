@@ -12,7 +12,7 @@ public class ServerMenu {
     private static Inventory inventory;
 
     public static Inventory getInventory() {
-        if(inventory == null) {
+        if (inventory == null) {
             inventory = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("menu-name")));
 
             AtomicInteger index = new AtomicInteger();

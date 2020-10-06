@@ -14,9 +14,9 @@ public class MessageListener implements PluginMessageListener {
 
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-        if(channel.equals("BungeeCord")) {
+        if (channel.equals("BungeeCord")) {
             ByteArrayDataInput input = ByteStreams.newDataInput(message);
-            if(input.readUTF().equals("RTP")) {
+            if (input.readUTF().equals("RTP")) {
                 String uuid = input.readUTF();
                 uuids.add(uuid);
             }

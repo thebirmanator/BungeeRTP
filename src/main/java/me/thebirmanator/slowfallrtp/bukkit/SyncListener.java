@@ -10,7 +10,7 @@ public class SyncListener implements Listener {
     @EventHandler
     public void onSync(SyncCompleteEvent event) {
         Player player = event.getPlayer();
-        if(MessageListener.uuids.contains(player.getUniqueId().toString())) {
+        if (MessageListener.uuids.contains(player.getUniqueId().toString())) {
             player.performCommand("rtp");
             MessageListener.uuids.remove(player.getUniqueId().toString());
         }
